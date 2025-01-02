@@ -18,14 +18,13 @@ const Header = () => {
         selectedButton === buttonKey ? styles.active : ""
       }`}
       onClick={() => handleButtonClick(buttonKey)}
-      style={{
-        color: "white",
-        borderColor: "white",
-      }}
     >
       {label}
     </Button>
   );
+
+  //Muestra que boton se esta seleccionando
+  console.log(selectedButton);
 
   return (
     <header className={styles.header}>
