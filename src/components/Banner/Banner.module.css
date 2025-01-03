@@ -1,0 +1,42 @@
+.banner {
+  display: flex;
+  background-image: url("./BannerMain.png");
+  height: 800px;
+  background-size: cover; /* Ajusta la imagen para cubrir todo el espacio disponible */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center; /* Centra la imagen dentro del contenedor */
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.seccion{
+  width: 50%;
+}
+
+.title {
+  color: var(--blanco);
+  font-family: "Roboto", sans-serif;
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 53.91px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+.p {
+  color: var(--blanco);
+  font-family: "Roboto", sans-serif;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 21.09px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.video iframe{
+  border-radius: 15px;
+  border: 5px solid var(--celestito);
+}

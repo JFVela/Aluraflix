@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Logo from "./Logo.png";
 import styles from "./Header.module.css";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 
 const Header = () => {
   const [selectedButton, setSelectedButton] = useState(null);
@@ -23,19 +22,16 @@ const Header = () => {
     </Button>
   );
 
-  //Muestra que boton se esta seleccionando
-  console.log(selectedButton);
-
   return (
     <header className={styles.header}>
-      <section className={styles.logoContenido}>
-        <img src={Logo} alt="Aluraflix" />
-      </section>
-      <div>
-        <Stack direction="row" spacing={3}>
+      <div className={styles.headerContent}>
+        <section className={styles.logoContenido}>
+          <img src={Logo} alt="Aluraflix" />
+        </section>
+        <div className={styles.buttonsContenido}>
           {renderButton("Home", "home")}
           {renderButton("Nuevo Video", "nuevo")}
-        </Stack>
+        </div>
       </div>
     </header>
   );
