@@ -55,7 +55,7 @@ const Contenido = (props) => {
               key={video.id}
               className={styles.gridItem}
             >
-              <Carta title={video.titulo} videoUrl={video.url} />
+              <Carta color={color} title={video.titulo} videoUrl={video.url} />
             </Grid>
           ))
         )}
