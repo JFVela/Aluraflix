@@ -15,14 +15,11 @@ function Banner() {
       </section>
       <div className={styles.video}>
         <iframe
-          width="150px"
-          height="auto"
           src="https://www.youtube.com/embed/ov7vA5HFe6w?si=krAgzxVGWrdMxOEJ&amp;start=1"
           title="YouTube video player"
-          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
         ></iframe>
       </div>
     </div>
