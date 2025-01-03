@@ -1,0 +1,23 @@
+.contenido .carta {
+  border: 5px solid var(--celestito);
+  box-shadow: inset 0px 0px 15px 0px var(--celestito);
+}
+
+.botones {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.botones .boton {
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 18.75px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}

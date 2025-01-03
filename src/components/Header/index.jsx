@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "./Logo.png";
+import Logo from "/img/Logo.png";
 import styles from "./Header.module.css";
 import Button from "@mui/material/Button";
 

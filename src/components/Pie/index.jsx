@@ -1,5 +1,5 @@
 import styles from "./Pie.module.css";
-import logo from "../../../public/img/Logo.png";
+import logo from "/img/Logo.png";
 
 const Pie = () => {
   return (
