@@ -1,0 +1,19 @@
+.container {
+  padding-bottom: 40px;
+}
+
+.container .contenido {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.etiqueta {
+  margin-bottom: 20px;
+}
+
+.gridItem {
+  display: flex;
+  justify-content: center;
+}
+
