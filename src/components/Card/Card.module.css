@@ -1,11 +1,25 @@
-.contenido .carta {
+.contenido {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.videoWrapper{
+  background-color: var(--celestito);
+}
+
+.gridItem {
+  display: flex;
+  justify-content: center;
+}
+
+.carta {
   border: 5px solid var(--celestito);
   box-shadow: inset 0px 0px 15px 0px var(--celestito);
 }
 
 .botones {
   display: flex;
-  margin-top: 10px;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
@@ -13,6 +27,7 @@
 .botones .boton {
   display: flex;
   justify-content: center;
+  align-items: center;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 800;

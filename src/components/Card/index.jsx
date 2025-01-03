@@ -1,22 +1,54 @@
+import React, { useEffect, useState } from "react";
 import styles from "./Card.module.css";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid"; // Importamos Grid para la disposición responsiva
+import Grid from "@mui/material/Grid";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
-import foto from "./lima.jpg";
 
 const Carta = () => {
-  const renderCard = (title) => (
-    <Card className={styles.carta} sx={{ borderRadius: "16px", maxWidth: 400 }}>
-      <CardMedia
-        className={styles.imagen}
-        sx={{ height: 260 }}
-        image={foto}
-        title={title}
-      />
+  const [videos, setVideos] = useState([]);
+
+  // Función para obtener los datos de la API
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch(
+          "https://api-alura-flix-gold.vercel.app/videos"
+        );
+        const data = await response.json();
+
+        // Filtrar solo los IDs 1, 2 y 3
+        const filteredVideos = data.filter(
+          (video) => video.id === 1 || video.id === 2 || video.id === 3
+        );
+        setVideos(filteredVideos);
+      } catch (error) {
+        console.error("Error al obtener los videos:", error);
+      }
+    };
+
+    fetchVideos();
+  }, []);
+
+  // Función para renderizar cada tarjeta
+  const renderCard = (title, videoUrl) => (
+    <Card
+      className={styles.carta}
+      sx={{ borderRadius: "16px", width: "100%", maxWidth: 420 }}
+    >
+      <div className={styles.videoWrapper}>
+        <iframe
+          width="100%"
+          height="260"
+          src={videoUrl}
+          title={title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </div>
       <CardActions sx={{ bgcolor: "text.primary" }} className={styles.botones}>
         <Button style={{ color: "#fff" }} className={styles.boton} size="small">
           <MdOutlineDeleteForever />
@@ -31,17 +63,25 @@ const Carta = () => {
   );
 
   return (
-    <Grid container spacing={3} className={styles.contenido}>
-      <Grid item xs={12} sm={6} md={3}>
-        {renderCard("Lima 1")}
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        {renderCard("Lima 2")}
-      </Grid>
-      <Grid item xs={12} sm={6} md={3}>
-        {renderCard("Lima 3")}
-      </Grid>
-
+    <Grid
+      container
+      spacing={3}
+      justifyContent="center"
+      alignItems="center"
+      className={styles.contenido}
+    >
+      {videos.map((video) => (
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          key={video.id}
+          className={styles.gridItem}
+        >
+          {renderCard(video.titulo, video.url)}
+        </Grid>
+      ))}
     </Grid>
   );
 };
