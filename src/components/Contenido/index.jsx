@@ -9,7 +9,7 @@ const Contenido = (props) => {
   let { curso, color } = props;
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(curso, color);
+  // console.log(curso, color);
 
   useEffect(() => {
     const fetchVideos = async () => {

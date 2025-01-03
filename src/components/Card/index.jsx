@@ -1,13 +1,27 @@
-import React from "react";
-import styles from "./Card.module.css";
+// Card/index.jsx
+import React, { useState } from "react";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
+import ModalComponente from "../ModalComponente";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import { MdOutlineDeleteForever } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
+import styles from "./Card.module.css";
 
 const Carta = ({ title, videoUrl, color }) => {
+  const [openModal, setOpenModal] = useState(false); // Estado para el Modal
+  const [selectedVideo, setSelectedVideo] = useState(null); // Estado para el video seleccionado
+
+  // Función para abrir el modal y pasar el video seleccionado
+  const handleOpenModal = () => {
+    setSelectedVideo({ titulo: title, url: videoUrl, color }); // Guarda el video seleccionado
+    setOpenModal(true); // Abre el modal
+  };
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => setOpenModal(false);
+
   // Función para extraer el ID del video de la URL de YouTube
   const getYouTubeVideoId = (url) => {
     const regExp =
@@ -15,6 +29,7 @@ const Carta = ({ title, videoUrl, color }) => {
     const match = url.match(regExp);
     return match && match[2].length === 11 ? match[2] : null;
   };
+
   const videoId = getYouTubeVideoId(videoUrl);
   const thumbnailUrl = videoId
     ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
@@ -55,11 +70,23 @@ const Carta = ({ title, videoUrl, color }) => {
           <MdOutlineDeleteForever />
           Borrar
         </Button>
-        <Button style={{ color: "#fff" }} className={styles.boton} size="small">
+        <Button
+          style={{ color: "#fff" }}
+          className={styles.boton}
+          size="small"
+          onClick={handleOpenModal} // Llama a la función para abrir el modal
+        >
           <CiEdit />
           Editar
         </Button>
       </CardActions>
+
+      {/* Modal */}
+      <ModalComponente
+        open={openModal} // Pasa el estado de apertura
+        handleClose={handleCloseModal} // Pasa la función de cierre
+        video={selectedVideo} // Pasa el video seleccionado
+      />
     </Card>
   );
 };
