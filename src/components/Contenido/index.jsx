@@ -9,7 +9,6 @@ const Contenido = (props) => {
   let { curso, color } = props;
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
-  // console.log(curso, color);
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -19,7 +18,7 @@ const Contenido = (props) => {
           "https://api-alura-flix-gold.vercel.app/videos"
         );
         const data = await response.json();
-        setVideos(data.slice(0, 3)); // Obtener solo los 3 primeros videos
+        setVideos(data); // Guarda todos los videos
       } catch (error) {
         console.error("Error al obtener los videos:", error);
       } finally {
@@ -30,8 +29,15 @@ const Contenido = (props) => {
     fetchVideos();
   }, []);
 
+  // Filtrar videos que correspondan al curso actual
+  const videosFiltrados = videos.filter((video) => video.curso === curso);
+
   return (
-    <Container sx={{ bgcolor: 'text.primary' }} maxWidth="mx" className={styles.container}>
+    <Container
+      sx={{ bgcolor: "text.primary" }}
+      maxWidth="mx"
+      className={styles.container}
+    >
       <Etiqueta elColor={color} elTexto={curso} className={styles.etiqueta} />
       <br />
       <Grid
@@ -45,8 +51,8 @@ const Contenido = (props) => {
           <Grid item>
             <p>Cargando videos...</p>
           </Grid>
-        ) : (
-          videos.map((video) => (
+        ) : videosFiltrados.length > 0 ? (
+          videosFiltrados.map((video) => (
             <Grid
               item
               xs={12}
@@ -55,9 +61,18 @@ const Contenido = (props) => {
               key={video.id}
               className={styles.gridItem}
             >
-              <Carta color={color} title={video.titulo} videoUrl={video.url} />
+              <Carta
+                curso={curso}
+                color={color}
+                title={video.titulo}
+                videoUrl={video.url}
+              />
             </Grid>
           ))
+        ) : (
+          <Grid item>
+            <p>No hay videos disponibles para este curso.</p>
+          </Grid>
         )}
       </Grid>
     </Container>

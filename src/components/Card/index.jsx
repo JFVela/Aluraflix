@@ -8,7 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import styles from "./Card.module.css";
 
-const Carta = ({ title, videoUrl, color }) => {
+const Carta = ({ title, videoUrl, color, curso }) => {
   const [openModal, setOpenModal] = useState(false); // Estado para el Modal
   const [selectedVideo, setSelectedVideo] = useState(null); // Estado para el video seleccionado
   const [accion, setAccion] = useState(""); // Estado para definir la acción (editar o eliminar)
