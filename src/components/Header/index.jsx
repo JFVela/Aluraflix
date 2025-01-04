@@ -1,27 +1,9 @@
 import React, { useState } from "react";
 import Logo from "/img/Logo.png";
 import styles from "./Header.module.css";
-import Button from "@mui/material/Button";
+import Boton from "../Boton";
 
 const Header = () => {
-  const [selectedButton, setSelectedButton] = useState(null);
-
-  const handleButtonClick = (button) => {
-    setSelectedButton((prevButton) => (prevButton === button ? null : button));
-  };
-
-  const renderButton = (label, buttonKey) => (
-    <Button
-      variant="outlined"
-      className={`${styles.button} ${
-        selectedButton === buttonKey ? styles.active : ""
-      }`}
-      onClick={() => handleButtonClick(buttonKey)}
-    >
-      {label}
-    </Button>
-  );
-
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
@@ -29,8 +11,8 @@ const Header = () => {
           <img src={Logo} alt="Aluraflix" />
         </section>
         <div className={styles.buttonsContenido}>
-          {renderButton("Home", "home")}
-          {renderButton("Nuevo Video", "nuevo")}
+          <Boton titulo="Home"/> 
+          <Boton titulo="Nuevo video" />
         </div>
       </div>
     </header>

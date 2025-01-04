@@ -29,23 +29,6 @@
   height: 40px;
 }
 
-.header .button {
-  width: 180px;
-  font-family: "Source Sans Pro", sans-serif;
-  font-weight: 900;
-  font-size: 18px;
-  color: var(--blanco);
-  border-color: var(--blanco);
-  transition: all 0.3s ease;
-}
-
-.button:hover,
-.active {
-  color: var(--azulado) !important;
-  border-color: var(--azulado) !important;
-  box-shadow: inset 0px 0px 12px 0px var(--azulado);
-}
-
 /* Estilos específicos para móviles pequeños */
 @media (max-width: 480px) {
   .headerContent {
@@ -56,10 +39,5 @@
   .buttonsContenido {
     flex-direction: column; /* Apilar los botones uno debajo del otro */
     align-items: center; /* Asegurar que los botones estén centrados */
-  }
-
-  .header .button {
-    width: 100%; /* Los botones ocupan el 100% del ancho en pantallas pequeñas */
-    margin-bottom: 10px; /* Añadir espacio entre los botones */
   }
 }

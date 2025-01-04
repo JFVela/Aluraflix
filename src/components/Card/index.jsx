@@ -1,4 +1,3 @@
-// Card/index.jsx
 import React, { useState } from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
@@ -12,10 +11,12 @@ import styles from "./Card.module.css";
 const Carta = ({ title, videoUrl, color }) => {
   const [openModal, setOpenModal] = useState(false); // Estado para el Modal
   const [selectedVideo, setSelectedVideo] = useState(null); // Estado para el video seleccionado
+  const [accion, setAccion] = useState(""); // Estado para definir la acción (editar o eliminar)
 
   // Función para abrir el modal y pasar el video seleccionado
-  const handleOpenModal = () => {
+  const handleOpenModal = (accionTipo) => {
     setSelectedVideo({ titulo: title, url: videoUrl, color }); // Guarda el video seleccionado
+    setAccion(accionTipo); // Establece la acción (editar o eliminar)
     setOpenModal(true); // Abre el modal
   };
 
@@ -51,6 +52,10 @@ const Carta = ({ title, videoUrl, color }) => {
             height="260"
             image={thumbnailUrl}
             alt={title}
+            style={{
+              borderBottom: `5px solid ${color}`
+            }}
+            className={styles.imagen}
           />
         ) : (
           <div
@@ -66,15 +71,20 @@ const Carta = ({ title, videoUrl, color }) => {
         )}
       </div>
       <CardActions sx={{ bgcolor: "text.primary" }} className={styles.botones}>
-        <Button style={{ color: "#fff" }} className={styles.boton} size="small">
+        <Button
+          style={{ color: "#fff" }}
+          className={styles.boton}
+          size="small"
+          onClick={() => handleOpenModal("eliminar")} // Llama a la función para abrir el modal con la acción "eliminar"
+        >
           <MdOutlineDeleteForever />
-          Borrar
+          Eliminar
         </Button>
         <Button
           style={{ color: "#fff" }}
           className={styles.boton}
           size="small"
-          onClick={handleOpenModal} // Llama a la función para abrir el modal
+          onClick={() => handleOpenModal("editar")} // Llama a la función para abrir el modal con la acción "editar"
         >
           <CiEdit />
           Editar
@@ -86,6 +96,7 @@ const Carta = ({ title, videoUrl, color }) => {
         open={openModal} // Pasa el estado de apertura
         handleClose={handleCloseModal} // Pasa la función de cierre
         video={selectedVideo} // Pasa el video seleccionado
+        accion={accion} // Pasa la acción (editar o eliminar)
       />
     </Card>
   );
