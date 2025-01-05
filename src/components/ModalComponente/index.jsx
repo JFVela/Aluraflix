@@ -55,7 +55,7 @@ const ModalComponente = ({ open, handleClose, accion }) => {
                 />
               </IconButton>
             </Header>
-            <Formulario />
+            <Formulario accion="ModificarVideo" />
 
           </>
         ) : (

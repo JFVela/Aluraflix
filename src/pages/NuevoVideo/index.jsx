@@ -40,7 +40,7 @@ function NuevoVideo() {
             Complete el formulario para crear una nueva tarjeta de video
           </SubtituloNuevo>
         </ContenidoTexto>
-        <Formulario />
+        <Formulario accion="NuevoVideo" />
       </Container>
     </>
   );

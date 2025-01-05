@@ -11,6 +11,7 @@ import {
 import styled from "styled-components";
 import Boton from "../Boton";
 import styles from "./Formulario.module.css";
+import {postVideo} from "../../services/dbService"
 
 const GrupoDeBotones = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const GrupoDeBotones = styled.div`
   justify-content: space-between;
 `;
 
-const Formulario = () => {
+const Formulario = ({ accion }) => {
   const [formValues, setFormValues] = useState({
     titulo: "",
     video: "",
@@ -99,7 +100,20 @@ const Formulario = () => {
       setShowAlert(true); // Mostrar alerta
     } else {
       setShowAlert(false); // Ocultar alerta
-      console.log("Formulario válido:", formValues);
+
+      // Usando switch en lugar de if
+      switch (accion) {
+        case "NuevoVideo":
+          console.log("Video Nuevo:", formValues);
+          postVideo(formValues); // Llamada a la función POST
+          break;
+        case "ModificarVideo":
+          console.log("Video Modificado:", formValues);
+          break;
+        default:
+          console.log("Acción desconocida");
+          break;
+      }
     }
   };
 
