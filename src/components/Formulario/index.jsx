@@ -28,13 +28,13 @@ const Formulario = () => {
     color: "white",
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "white",
+        border: "3px solid white"
       },
       "&:hover fieldset": {
-        borderColor: "white",
+        borderColor: "var(--azulado)",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "var(--azulado)",
       },
     },
     "& .MuiInputLabel-root": {

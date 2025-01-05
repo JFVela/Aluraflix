@@ -26,9 +26,9 @@ const BotonDinamico = styled.button`
   }
 `;
 
-const Boton = ({ titulo }) => {
+const Boton = ({ titulo, onClick }) => {
   return (
-    <BotonDinamico>
+    <BotonDinamico onClick={onClick}>
       <span>{titulo}</span>
     </BotonDinamico>
   );
