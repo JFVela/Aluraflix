@@ -7,17 +7,20 @@ import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import styles from "./Card.module.css";
+import { useVideoContext } from "../../context/videoContext";
 
-const Carta = ({ title, videoUrl, color, curso }) => {
+const Carta = ({ id, title, videoUrl, color }) => {
   const [openModal, setOpenModal] = useState(false); // Estado para el Modal
   const [selectedVideo, setSelectedVideo] = useState(null); // Estado para el video seleccionado
   const [accion, setAccion] = useState(""); // Estado para definir la acción (editar o eliminar)
+  const { setVideoId } = useVideoContext();
 
   // Función para abrir el modal y pasar el video seleccionado
   const handleOpenModal = (accionTipo) => {
     setSelectedVideo({ titulo: title, url: videoUrl, color }); // Guarda el video seleccionado
     setAccion(accionTipo); // Establece la acción (editar o eliminar)
     setOpenModal(true); // Abre el modal
+    setVideoId(id);
   };
 
   // Función para cerrar el modal
@@ -53,7 +56,7 @@ const Carta = ({ title, videoUrl, color, curso }) => {
             image={thumbnailUrl}
             alt={title}
             style={{
-              borderBottom: `5px solid ${color}`
+              borderBottom: `5px solid ${color}`,
             }}
             className={styles.imagen}
           />

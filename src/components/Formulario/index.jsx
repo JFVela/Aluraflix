@@ -11,7 +11,10 @@ import {
 import styled from "styled-components";
 import Boton from "../Boton";
 import styles from "./Formulario.module.css";
-import { fetchCursos, postVideo } from "../../services/dbService"; // Importar el servicio
+import { fetchCursos } from "../../services/dbService"; // Importar el servicio
+import { postVideo } from "../../services/PostVideo"; // Importar el servicio
+import { updateVideo } from "../../services/PutVideo"; // Importar el servicio
+import { useVideoContext } from "../../context/videoContext";
 
 const GrupoDeBotones = styled.div`
   display: flex;
@@ -38,6 +41,7 @@ const Formulario = ({ accion }) => {
 
   const [showAlert, setShowAlert] = useState(false);
   const [cursos, setCursos] = useState([]);
+  const { videoId } = useVideoContext();
 
   useEffect(() => {
     const loadCursos = async () => {
@@ -105,6 +109,15 @@ const Formulario = ({ accion }) => {
           break;
         case "ModificarVideo":
           console.log("Video Modificado:", formValues);
+          updateVideo(videoId, formValues) // Llamada a la función PUT
+            .then((updatedVideo) => {
+              console.log("Video actualizado:", updatedVideo);
+              // Puedes agregar alguna lógica después de la actualización, como redirigir o mostrar un mensaje
+            })
+            .catch((error) => {
+              console.error("Error al actualizar el video:", error);
+              // Manejar el error (mostrar alerta, etc.)
+            });
           break;
         default:
           console.log("Acción desconocida");

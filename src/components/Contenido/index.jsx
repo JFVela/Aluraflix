@@ -63,6 +63,7 @@ const Contenido = (props) => {
                 color={color}
                 title={video.titulo}
                 videoUrl={video.url}
+                id={video.id}
               />
             </Grid>
           ))

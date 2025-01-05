@@ -37,7 +37,14 @@ const TituloModal = styled.h2`
 
 const ModalComponente = ({ open, handleClose, accion }) => {
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal
+      open={open}
+      onClose={(event, reason) => {
+        if (reason !== "backdropClick") {
+          handleClose(); // Solo se cierra si no es un clic en el fondo
+        }
+      }}
+    >
       <Box sx={style}>
         {accion === "editar" ? (
           <>
@@ -56,7 +63,6 @@ const ModalComponente = ({ open, handleClose, accion }) => {
               </IconButton>
             </Header>
             <Formulario accion="ModificarVideo" />
-
           </>
         ) : (
           <p>Hola</p>
