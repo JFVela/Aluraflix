@@ -1,4 +1,7 @@
+import React, { useState, useEffect } from "react";
 import {
+  Alert,
+  AlertTitle,
   FormControl,
   InputLabel,
   MenuItem,
@@ -8,9 +11,7 @@ import {
 import styled from "styled-components";
 import Boton from "../Boton";
 import styles from "./Formulario.module.css";
-import { useState } from "react";
 
-// Cambiar a PascalCase
 const GrupoDeBotones = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -18,65 +19,160 @@ const GrupoDeBotones = styled.div`
 `;
 
 const Formulario = () => {
-  const [age, setAge] = useState(""); // Mover la declaración de useState dentro de la función
+  const [formValues, setFormValues] = useState({
+    titulo: "",
+    video: "",
+    descripcion: "",
+    curso: "",
+  });
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const [formErrors, setFormErrors] = useState({
+    titulo: { error: false, message: "El título no puede estar vacío" },
+    video: { error: false, message: "La URL del video no puede estar vacía" },
+    descripcion: {
+      error: false,
+      message: "La descripción no puede estar vacía",
+    },
+  });
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [cursos, setCursos] = useState([]);
+
+  // Fetch cursos from API
+  useEffect(() => {
+    const fetchCursos = async () => {
+      try {
+        const response = await fetch(
+          "https://api-alura-flix-gold.vercel.app/cursos"
+        );
+        const data = await response.json();
+        setCursos(data);
+      } catch (error) {
+        console.error("Error fetching cursos:", error);
+      }
+    };
+
+    fetchCursos();
+  }, []);
+
+  const isFormValid = () =>
+    Object.values(formErrors).every((error) => !error.error) &&
+    Object.values(formValues).every(
+      (value) => typeof value === "string" && value.trim() !== ""
+    );
+
+  const handleBlur = (field, value) => {
+    validateField(field, value);
+  };
+
+  const validateField = (field, value) => {
+    let error = false;
+    let message = "";
+
+    if (value.trim() === "") {
+      error = true;
+      message = `El campo ${field} no puede estar vacío`;
+    }
+
+    setFormErrors((prev) => ({
+      ...prev,
+      [field]: { error, message },
+    }));
+  };
+
+  const handleChange = (field, value) => {
+    setFormValues((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+
+    validateField(field, value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const isEmpty = Object.values(formValues).some(
+      (value) => typeof value !== "string" || value.trim() === ""
+    );
+    if (isEmpty) {
+      setShowAlert(true); // Mostrar alerta
+    } else {
+      setShowAlert(false); // Ocultar alerta
+      console.log("Formulario válido:", formValues);
+    }
+  };
+
+  const handleClear = (event) => {
+    event.preventDefault();
+    setFormValues({
+      titulo: "",
+      video: "",
+      descripcion: "",
+      curso: "",
+    });
+
+    setFormErrors({
+      titulo: { error: false, message: "El título no puede estar vacío" },
+      video: { error: false, message: "La URL del video no puede estar vacía" },
+      descripcion: {
+        error: false,
+        message: "La descripción no puede estar vacía",
+      },
+    });
   };
 
   const commonStyles = {
     color: "white",
     "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        border: "3px solid white"
-      },
-      "&:hover fieldset": {
-        borderColor: "var(--azulado)",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "var(--azulado)",
-      },
+      "& fieldset": { border: "3px solid white" },
+      "&:hover fieldset": { borderColor: "var(--azulado)" },
+      "&.Mui-focused fieldset": { borderColor: "var(--azulado)" },
     },
-    "& .MuiInputLabel-root": {
-      color: "white",
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiOutlinedInput-input": {
-      color: "white",
-    },
-    "& .MuiInputBase-input::placeholder": {
-      color: "white",
-      opacity: 0.7,
-    },
+    "& .MuiInputLabel-root": { color: "white" },
+    "& .MuiInputLabel-root.Mui-focused": { color: "white" },
+    "& .MuiOutlinedInput-input": { color: "white" },
+    "& .MuiInputBase-input::placeholder": { color: "white", opacity: 0.7 },
   };
 
   return (
-    <form className={styles.FormularioCss}>
+    <form
+      autoComplete="off"
+      className={styles.FormularioCss}
+      onSubmit={handleSubmit}
+    >
       <TextField
         sx={commonStyles}
         id="tituloId"
-        label="Titulo"
+        label="Título"
         placeholder="Ingrese el título"
         variant="outlined"
         fullWidth
         margin="normal"
+        value={formValues.titulo}
+        onChange={(e) => handleChange("titulo", e.target.value)}
+        onBlur={(e) => handleBlur("titulo", e.target.value)}
+        error={formErrors.titulo.error}
+        helperText={formErrors.titulo.error ? formErrors.titulo.message : ""}
       />
+
       <FormControl sx={commonStyles} fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="curso-label">Curso</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
+          labelId="curso-label"
+          id="curso"
+          value={formValues.curso}
+          onChange={(e) => handleChange("curso", e.target.value)}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value="">Selecciona un curso</MenuItem>
+          {cursos.map((curso) => (
+            <MenuItem key={curso.id} value={curso.titulo}>
+              {curso.titulo}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
+
       <TextField
         sx={commonStyles}
         id="videoId"
@@ -85,23 +181,45 @@ const Formulario = () => {
         variant="outlined"
         fullWidth
         margin="normal"
+        value={formValues.video}
+        onChange={(e) => handleChange("video", e.target.value)}
+        onBlur={(e) => handleBlur("video", e.target.value)}
+        error={formErrors.video.error}
+        helperText={formErrors.video.error ? formErrors.video.message : ""}
       />
+
       <TextField
-        sx={{
-          ...commonStyles,
-          width: "500px",
-        }}
+        sx={{ ...commonStyles, width: "500px" }}
         id="descripcionId"
-        label="Descripcion del video"
+        label="Descripción del video"
         placeholder="Descripción (máximo 4 filas)"
         variant="outlined"
         multiline
         rows={4}
         margin="normal"
+        value={formValues.descripcion}
+        onChange={(e) => handleChange("descripcion", e.target.value)}
+        onBlur={(e) => handleBlur("descripcion", e.target.value)}
+        error={formErrors.descripcion.error}
+        helperText={
+          formErrors.descripcion.error ? formErrors.descripcion.message : ""
+        }
       />
+
+      {showAlert && (
+        <Alert severity="warning">
+          <AlertTitle>Advertencia</AlertTitle>
+          Debes llenar todos los campos antes de guardar.
+        </Alert>
+      )}
+
       <GrupoDeBotones>
-        <Boton titulo="Guardar" />
-        <Boton titulo="Limpiar" />
+        <Boton
+          titulo="Guardar"
+          onClick={handleSubmit}
+          disabled={!isFormValid()}
+        />
+        <Boton titulo="Limpiar" onClick={handleClear} />
       </GrupoDeBotones>
     </form>
   );
