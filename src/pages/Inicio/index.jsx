@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
 import Contenido from "../../components/Contenido";
 import Banner from "../../components/Banner";
+import { fetchCursos } from "../../services/dbService"; // Importar el servicio
 
 function Inicio() {
   const [cursos, setCursos] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchCursos = async () => {
+    const loadCursos = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          "https://api-alura-flix-gold.vercel.app/cursos"
-        );
-        const data = await response.json();
-        setCursos(data); // Guarda los cursos en el estado
+        const data = await fetchCursos(); // Usar el servicio
+        setCursos(data);
       } catch (error) {
-        console.error("Error al obtener los datos:", error);
+        console.error("Error al cargar los cursos", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCursos();
+    loadCursos();
   }, []);
 
   return (
@@ -38,4 +36,5 @@ function Inicio() {
     </>
   );
 }
+
 export default Inicio;

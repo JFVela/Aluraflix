@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Carta from "./../Card";
 import Etiqueta from "./../Etiqueta";
 import Container from "@mui/material/Container";
+import { fetchVideos } from "../../services/dbService"; // Importar el servicio
 
 const Contenido = (props) => {
   let { curso, color } = props;
@@ -11,14 +12,11 @@ const Contenido = (props) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchVideos = async () => {
+    const loadVideos = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          "https://api-alura-flix-gold.vercel.app/videos"
-        );
-        const data = await response.json();
-        setVideos(data); // Guarda todos los videos
+        const data = await fetchVideos(); // Usar el servicio
+        setVideos(data);
       } catch (error) {
         console.error("Error al obtener los videos:", error);
       } finally {
@@ -26,10 +24,9 @@ const Contenido = (props) => {
       }
     };
 
-    fetchVideos();
+    loadVideos();
   }, []);
 
-  // Filtrar videos que correspondan al curso actual
   const videosFiltrados = videos.filter((video) => video.curso === curso);
 
   return (

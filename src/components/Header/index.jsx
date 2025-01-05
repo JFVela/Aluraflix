@@ -11,11 +11,18 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.headerContent}>
         <section className={styles.logoContenido}>
-          <img src={Logo} alt="Aluraflix" />
+          <a className={styles.logoImagen} onClick={() => navigate("/")}>
+            <img src={Logo} alt="Aluraflix" />
+          </a>
         </section>
         <div className={styles.buttonsContenido}>
-          <Boton titulo="Home" onClick={() => navigate("/")} /> {/* Redirige a "/" */}
-          <Boton titulo="Nuevo video" onClick={() => navigate("/nuevo-video")} /> {/* Redirige a "/nuevo-video" */}
+          <Boton titulo="Home" onClick={() => navigate("/")} />
+          {/* Redirige a "/" */}
+          <Boton
+            titulo="Nuevo video"
+            onClick={() => navigate("/nuevo-video")}
+          />
+          {/* Redirige a "/nuevo-video" */}
         </div>
       </div>
     </header>

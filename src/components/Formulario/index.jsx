@@ -11,7 +11,7 @@ import {
 import styled from "styled-components";
 import Boton from "../Boton";
 import styles from "./Formulario.module.css";
-import {postVideo} from "../../services/dbService"
+import { fetchCursos, postVideo } from "../../services/dbService"; // Importar el servicio
 
 const GrupoDeBotones = styled.div`
   display: flex;
@@ -39,21 +39,17 @@ const Formulario = ({ accion }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [cursos, setCursos] = useState([]);
 
-  // Fetch cursos from API
   useEffect(() => {
-    const fetchCursos = async () => {
+    const loadCursos = async () => {
       try {
-        const response = await fetch(
-          "https://api-alura-flix-gold.vercel.app/cursos"
-        );
-        const data = await response.json();
+        const data = await fetchCursos(); // Usar el servicio
         setCursos(data);
       } catch (error) {
         console.error("Error fetching cursos:", error);
       }
     };
 
-    fetchCursos();
+    loadCursos();
   }, []);
 
   const isFormValid = () =>
