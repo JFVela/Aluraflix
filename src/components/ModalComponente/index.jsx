@@ -37,14 +37,7 @@ const TituloModal = styled.h2`
 
 const ModalComponente = ({ open, handleClose, accion }) => {
   return (
-    <Modal
-      open={open}
-      onClose={(event, reason) => {
-        if (reason !== "backdropClick") {
-          handleClose(); // Solo se cierra si no es un clic en el fondo
-        }
-      }}
-    >
+    <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         {accion === "editar" ? (
           <>

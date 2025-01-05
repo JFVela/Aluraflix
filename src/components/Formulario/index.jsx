@@ -101,11 +101,17 @@ const Formulario = ({ accion }) => {
     } else {
       setShowAlert(false); // Ocultar alerta
 
+      // Incluye el videoId al cuerpo de los valores del formulario
+      const videoData = {
+        ...formValues,
+        id: videoId, // Aquí agregamos el videoId al objeto
+      };
+
       // Usando switch en lugar de if
       switch (accion) {
         case "NuevoVideo":
-          console.log("Video Nuevo:", formValues);
-          postVideo(formValues); // Llamada a la función POST
+          console.log("Video Nuevo:", videoData);
+          postVideo(videoData); // Llamada a la función POST
           break;
         case "ModificarVideo":
           console.log("Video Modificado:", formValues);
@@ -164,7 +170,7 @@ const Formulario = ({ accion }) => {
       className={styles.FormularioCss}
       onSubmit={handleSubmit}
     >
-      <p>El id es: {videoId}</p>
+      {/* <p>El id es: {videoId}</p> */}
       <TextField
         sx={commonStyles}
         id="tituloId"

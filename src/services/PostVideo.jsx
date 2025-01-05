@@ -8,6 +8,7 @@ export const postVideo = async (formValues) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          id: formValues.id, // Agregar el id aquí
           titulo: formValues.titulo,
           url: formValues.video,
           curso: formValues.curso,

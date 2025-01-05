@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import Formulario from "../../components/Formulario";
 import styled from "styled-components";
 import { useVideoContext } from "../../context/videoContext";
+import { v4 as uuidv4 } from "uuid";
 import { useEffect } from "react";
 
 // Estilo base para los títulos
@@ -37,7 +38,7 @@ function NuevoVideo() {
   useEffect(() => {
     return () => {
       // Limpiar el videoId cuando el componente se desmonte
-      setVideoId(null);
+      setVideoId(uuidv4());
     };
   }, [setVideoId]);
   return (
