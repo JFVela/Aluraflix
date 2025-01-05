@@ -1,13 +1,10 @@
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1000;
   background-color: var(--gris);
   border-bottom: 4px solid var(--azulado);
   box-shadow: 0px 2px 13px 0px var(--azulado);
+  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
 }
 
 .headerContent {

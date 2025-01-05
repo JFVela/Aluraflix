@@ -189,7 +189,7 @@ const Formulario = () => {
       />
 
       <TextField
-        sx={{ ...commonStyles, width: "500px" }}
+        sx={{ ...commonStyles }}
         id="descripcionId"
         label="Descripción del video"
         placeholder="Descripción (máximo 4 filas)"
