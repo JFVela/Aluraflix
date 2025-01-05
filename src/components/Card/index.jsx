@@ -28,6 +28,8 @@ const Carta = ({ id, title, videoUrl, color }) => {
 
   // Función para extraer el ID del video de la URL de YouTube
   const getYouTubeVideoId = (url) => {
+    if (!url) return null; // Verifica si la URL está definida
+
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);

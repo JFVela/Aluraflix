@@ -164,6 +164,7 @@ const Formulario = ({ accion }) => {
       className={styles.FormularioCss}
       onSubmit={handleSubmit}
     >
+      <p>El id es: {videoId}</p>
       <TextField
         sx={commonStyles}
         id="tituloId"

@@ -1,6 +1,8 @@
 import { Container } from "@mui/material";
 import Formulario from "../../components/Formulario";
 import styled from "styled-components";
+import { useVideoContext } from "../../context/videoContext";
+import { useEffect } from "react";
 
 // Estilo base para los títulos
 const EstiloTitulo = styled.div`
@@ -31,6 +33,13 @@ const SubtituloNuevo = styled(EstiloTitulo)`
 `;
 
 function NuevoVideo() {
+  const { setVideoId } = useVideoContext();
+  useEffect(() => {
+    return () => {
+      // Limpiar el videoId cuando el componente se desmonte
+      setVideoId(null);
+    };
+  }, [setVideoId]);
   return (
     <>
       <Container sx={{ bgcolor: "text.primary", padding: "45px" }} maxWidth="">

@@ -1,6 +1,10 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useContext, useState } from 'react';
 
 const VideoContext = createContext();
+
+export const useVideoContext = () => {
+  return useContext(VideoContext);
+};
 
 export const VideoProvider = ({ children }) => {
   const [videoId, setVideoId] = useState(null);
@@ -11,5 +15,3 @@ export const VideoProvider = ({ children }) => {
     </VideoContext.Provider>
   );
 };
-
-export const useVideoContext = () => useContext(VideoContext);
