@@ -56,6 +56,7 @@ const ModalComponente = ({ open, handleClose, accion }) => {
               </IconButton>
             </Header>
             <Formulario />
+
           </>
         ) : (
           <p>Hola</p>
