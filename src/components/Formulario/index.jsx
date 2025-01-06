@@ -16,7 +16,7 @@ import { postVideo } from "../../services/PostVideo"; // Importar el servicio
 import { updateVideo } from "../../services/PutVideo"; // Importar el servicio
 import { useVideoContext } from "../../context/videoContext";
 
-const GrupoDeBotones = styled.div`
+export const GrupoDeBotones = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

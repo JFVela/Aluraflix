@@ -5,6 +5,7 @@ import Formulario from "../Formulario";
 import styled from "styled-components";
 import { Button, IconButton, Typography } from "@mui/material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { GrupoDeBotones } from "../Formulario";
 import { deleteVideo } from "../../services/DeleteVideo"; // Asegúrate de importar la función
 
 const style = {
@@ -39,7 +40,13 @@ const TituloModal = styled.h2`
   margin: 0;
 `;
 
-const ModalComponente = ({ open, handleClose, accion, video, handleEliminar }) => {
+const ModalComponente = ({
+  open,
+  handleClose,
+  accion,
+  video,
+  handleEliminar,
+}) => {
   const handleDeleteClick = async () => {
     try {
       await deleteVideo(video.id); // Llama la función deleteVideo con el id del video
@@ -73,12 +80,23 @@ const ModalComponente = ({ open, handleClose, accion, video, handleEliminar }) =
           </>
         ) : (
           <>
-            <TituloModal>Eliminar Card:</TituloModal>
+            <TituloModal style={{ color: "red" }}>Eliminar Card:</TituloModal>
             <Typography variant="h6" id="confirm-eliminar-video">
               ¿Estás seguro de que deseas eliminar este video?
             </Typography>
-            <Button onClick={handleDeleteClick}>Eliminar</Button>
-            <Button onClick={handleClose}>Cancelar</Button>
+            <br />
+            <GrupoDeBotones>
+              <Button
+                color="info"
+                variant="contained"
+                onClick={handleDeleteClick}
+              >
+                Eliminar
+              </Button>
+              <Button color="warning" variant="contained" onClick={handleClose}>
+                Cancelar
+              </Button>
+            </GrupoDeBotones>
           </>
         )}
       </Box>
