@@ -55,6 +55,7 @@ const ModalComponente = ({
     } catch (error) {
       console.error("Error al eliminar el video", error);
     }
+    window.location.reload(true);
   };
 
   return (

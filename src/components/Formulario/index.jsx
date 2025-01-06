@@ -15,11 +15,17 @@ import { fetchCursos } from "../../services/dbService"; // Importar el servicio
 import { postVideo } from "../../services/PostVideo"; // Importar el servicio
 import { updateVideo } from "../../services/PutVideo"; // Importar el servicio
 import { useVideoContext } from "../../context/videoContext";
+import { useNavigate } from "react-router-dom";
 
 export const GrupoDeBotones = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media (max-width: 1150px) {
+    justify-content: center;
+    gap: 10px;
+  }
 `;
 
 const Formulario = ({ accion }) => {
@@ -42,6 +48,7 @@ const Formulario = ({ accion }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [cursos, setCursos] = useState([]);
   const { videoId } = useVideoContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadCursos = async () => {
@@ -112,6 +119,7 @@ const Formulario = ({ accion }) => {
         case "NuevoVideo":
           console.log("Video Nuevo:", videoData);
           postVideo(videoData); // Llamada a la función POST
+          navigate("/");
           break;
         case "ModificarVideo":
           console.log("Video Modificado:", formValues);
