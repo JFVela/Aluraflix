@@ -13,18 +13,25 @@ const Carta = ({ id, title, videoUrl, color }) => {
   const [openModal, setOpenModal] = useState(false); // Estado para el Modal
   const [selectedVideo, setSelectedVideo] = useState(null); // Estado para el video seleccionado
   const [accion, setAccion] = useState(""); // Estado para definir la acción (editar o eliminar)
-  const { setVideoId } = useVideoContext();
+  const { setVideoId, eliminarVideo } = useVideoContext(); // Asegúrate de tener una función eliminarVideo en tu contexto
 
   // Función para abrir el modal y pasar el video seleccionado
   const handleOpenModal = (accionTipo) => {
-    setSelectedVideo({ titulo: title, url: videoUrl, color }); // Guarda el video seleccionado
-    setAccion(accionTipo); // Establece la acción (editar o eliminar)
-    setOpenModal(true); // Abre el modal
+    setSelectedVideo({ id, titulo: title, url: videoUrl, color });
+    setAccion(accionTipo);
+    setOpenModal(true);
     setVideoId(id);
   };
 
   // Función para cerrar el modal
   const handleCloseModal = () => setOpenModal(false);
+
+  // Función para eliminar un video
+  const handleEliminar = (videoId) => {
+    // Aquí puedes hacer lo que necesites para eliminar el video, por ejemplo, actualizar el estado global
+    eliminarVideo(videoId); // Esto debería estar en el contexto
+    setOpenModal(false); // Cierra el modal después de eliminar
+  };
 
   // Función para extraer el ID del video de la URL de YouTube
   const getYouTubeVideoId = (url) => {
@@ -98,13 +105,15 @@ const Carta = ({ id, title, videoUrl, color }) => {
 
       {/* Modal */}
       <ModalComponente
-        open={openModal} // Pasa el estado de apertura
-        handleClose={handleCloseModal} // Pasa la función de cierre
-        video={selectedVideo} // Pasa el video seleccionado
-        accion={accion} // Pasa la acción (editar o eliminar)
+        open={openModal}
+        handleClose={handleCloseModal}
+        video={selectedVideo}
+        accion={accion}
+        handleEliminar={handleEliminar} // Pasa la función handleEliminar aquí
       />
     </Card>
   );
 };
+
 
 export default Carta;
